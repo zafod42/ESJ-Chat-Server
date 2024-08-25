@@ -3,7 +3,7 @@ package org.example;
 import java.io.IOException;
 
 public class ServerController implements Runnable{
-    private ChatServer server;
+    private final ChatServer server;
 
     public ServerController() {
         server = ChatServer.getInstance();

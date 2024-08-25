@@ -9,12 +9,10 @@ public class ChatServer {
     final static public Client SERVER_USER = new Client("Server");
     final static private int DEFAULT_PORT = 4444;
     final static private String DEFAULT_HOST = "localhost";
-
-    private Object mutex = new Object();
     static private ChatServer instance = null;
-    private ServerSocket serverSocket = null;
+    private final ServerSocket serverSocket;
     private final int port;
-    private InetAddress inetAddress = null;
+    private final InetAddress inetAddress;
 
     private final List<Client> clients = Collections.synchronizedList(new ArrayList<>());
 
@@ -40,7 +38,7 @@ public class ChatServer {
     public void broadcast(Message msg) {
         Iterator<Client> iterator = clients.listIterator();
         while(iterator.hasNext()) {
-            Client client = (Client) iterator.next();
+            Client client = iterator.next();
             if (client.equals(msg.getFrom())) continue;
             try {
                 client.sendMessageToClient(msg);
